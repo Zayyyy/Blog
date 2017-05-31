@@ -394,14 +394,123 @@
 
       
         
-          <p>This project will cover the whole process about how we implement that a robot instructs an exercise session. The robot will show the standard poses firstly, then the user needs to follow it to perform the same posture. We will use a camera to detect if the user perform the exercise correctly. If not, the robot will tell the use how to correct the posture.<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Blog/2017/05/29/CV/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+             <a id="more"></a> 
+<h2 id="Week-1"><a href="#Week-1" class="headerlink" title="Week 1 "></a><font color="#2EA9DF">Week 1 </font></h2><h3 id="Progress"><a href="#Progress" class="headerlink" title="Progress"></a>Progress</h3><ul>
+<li>Webot part: We designed 6 postures but some are too complicated when setting the virtual robot. The adjustable range of angles in choregraphe is too small to achieve some postures, so we need to simplify our postures.</li>
+<li>Pose estimation: We followed the instruction of 2D articulated human pose estimation software. Luckily, the example of human pose estimation works well. However, when we want to dectect upperbody or fullbody to get the bounding box of our dataset, there are some problems with the calvin upper-body detector. The provided voc-release file is too old without maintance. In this case, we have to change our plan.</li>
+<li>Reference:<br>pose estimation: <a href="http://groups.inf.ed.ac.uk/calvin/articulated_human_pose_estimation_code/" target="_blank" rel="external">http://groups.inf.ed.ac.uk/calvin/articulated_human_pose_estimation_code/</a><br>body detector:<a href="http://groups.inf.ed.ac.uk/calvin/calvin_upperbody_detector/" target="_blank" rel="external">http://groups.inf.ed.ac.uk/calvin/calvin_upperbody_detector/</a></li>
+</ul>
+<h3 id="Issues"><a href="#Issues" class="headerlink" title="Issues"></a>Issues</h3><ol>
+<li><p>MATLAB can’t recognize the complier (Xcode 8.x) on Mac.</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt; mex -setup</div><div class="line">Error using mex</div><div class="line">No supported compiler or SDK was found. For options, visit</div><div class="line">http://www.mathworks.com/support/compilers/R2016a/maci64.html.</div></pre></td></tr></table></figure>
+<p> <strong>Solution:</strong><br> <br>The reason could be the sdk for your mac version isn’t linked to MATLAB.</p>
+<ul>
+<li>Edit the file: yourMatlabRoot/bin/maci64/mexopts/clang++_maci64.xml<br></li>
+<li>Edit the file: yourMatlabRoot/bin/maci64/mexopts/clang_maci64.xml<br></li>
+<li><p>Add following 2 sentences in &lt; ISYSROOT &gt; &lt; SYSROOT &gt; and &lt; SDKVER &gt; &lt; SDKVER &gt;      </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.12.sdk&quot; /&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>So the code block will look like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&lt;ISYSROOT&gt;</div><div class="line">&lt;and&gt;</div><div class="line">&lt;cmdReturns name=&quot;xcode-select -print-path&quot;/&gt;</div><div class="line">&lt;or&gt;</div><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk&quot; /&gt;</div><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk&quot; /&gt;</div><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk&quot; /&gt;</div><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.9.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.10.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.11.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.12.sdk&quot; /&gt;</div><div class="line">&lt;/or&gt;</div><div class="line">&lt;/and&gt;</div><div class="line">&lt;/ISYSROOT&gt;</div><div class="line">&lt;SDKVER&gt;</div><div class="line">&lt;and&gt;</div><div class="line">&lt;and&gt;</div><div class="line">&lt;cmdReturns name=&quot;xcode-select -print-path&quot;/&gt;</div><div class="line">&lt;or&gt;</div><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk&quot; /&gt;</div><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk&quot; /&gt;</div><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk&quot; /&gt;</div><div class="line">&lt;dirExists name=&quot;$$/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.9.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.10.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.11.sdk&quot; /&gt;</div><div class="line">&lt;cmdReturns name=&quot;find $$ -name MacOSX10.12.sdk&quot; /&gt;</div><div class="line">&lt;/or&gt;</div><div class="line">&lt;/and&gt;</div><div class="line">&lt;cmdReturns name=&quot;echo $$ | rev | cut -c1-10 | rev | egrep -oh &apos;[0-9]+\.[0-9]+&apos;&quot; /&gt;</div><div class="line">&lt;/and&gt;</div><div class="line">&lt;/SDKVER&gt;</div></pre></td></tr></table></figure>
+<p>Reference:<br><a href="https://cn.mathworks.com/matlabcentral/answers/246507-why-can-t-mex-find-a-supported-compiler-in-matlab-r2015b-after-i-upgraded-to-xcode-7-0/" target="_blank" rel="external">https://cn.mathworks.com/matlabcentral/answers/246507-why-can-t-mex-find-a-supported-compiler-in-matlab-r2015b-after-i-upgraded-to-xcode-7-0/</a></p>
+</li>
+</ul>
+</li>
+<li><p>Error message in Matlab when using voc-release file: Undefined function ‘resize’ for input arguments of type ‘double’.</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Undefined function &apos;resize&apos; for input arguments of type &apos;double&apos;.</div><div class="line"></div><div class="line">Error in featpyramid (line 22)</div><div class="line">scaled = resize(im, 1/sc^(i-1));</div><div class="line"></div><div class="line">Error in detect (line 69)</div><div class="line">[feat, scales] = featpyramid(input, model.sbin, interval);</div><div class="line"></div><div class="line">Error in DetectStillImage (line 35)</div><div class="line">boxes = detect(tempimg, pffmodel,det_pars.ubfpff_thresh);</div><div class="line"></div><div class="line">Error in DetectAndEstimDir (line 26)</div><div class="line">detections = DetectStillImage(fullfile(img_dir,Files(idx).name),pffubfmodel_path,facemodel_path,det_pars,verbose);</div></pre></td></tr></table></figure>
+<p> The definition of the function of resize in resize.cc is:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mxArray *resize(const mxArray *mxsrc, const mxArray *mxscale) &#123;&#125;</div></pre></td></tr></table></figure>
+<p> The input type is mxArrar, not double type. But changing it into double type dosen’t work. No solution now.</p>
+</li>
+</ol>
+<h2 id="Week-2"><a href="#Week-2" class="headerlink" title="Week 2 "></a><font color="#2EA9DF">Week 2 </font></h2><h3 id="Progress-1"><a href="#Progress-1" class="headerlink" title="Progress"></a>Progress</h3><p>Since using MATLAB to extract posture data is infeasible, we decided to work on Kinect to get the skeleton data. We have looked up dozens of documentation and found that MacOS can be connected to Kinect. After fixing a lot of problems when installing the Kinect SDK on Mac, we successfully ran the Kinect. However, we found there is no way to call Pykinect library for programming except using Windows OS. The most ridiculous thing is that all of our group member don’t have Windows laptop. We had no choice but worked on the computer in the laboratory which needed the administrator’s account to install Kinect SDK and other python packages on VS 2013. Due to the above, We wasted lots of time and encountered many problems about pygame enviroment before we can start programming. </p>
+<p>Reference:<br><a href="http://blog.nelga.com/setup-microsoft-kinect-on-mac-os-x-10-9-mavericks/" target="_blank" rel="external">http://blog.nelga.com/setup-microsoft-kinect-on-mac-os-x-10-9-mavericks/</a><br><a href="https://github.com/Microsoft/PTVS/wiki/PyKinect" target="_blank" rel="external">https://github.com/Microsoft/PTVS/wiki/PyKinect</a></p>
+<h3 id="Issues-1"><a href="#Issues-1" class="headerlink" title="Issues"></a>Issues</h3><ol>
+<li><p>Can’t access python environment correctly.<br><br> <strong>Solution:</strong></p>
+<ul>
+<li>Open solution explorer, set the python environment to the right path.</li>
+<li>We recommond to add virtual environment rather than the global environment.<br><br></li>
+</ul>
+</li>
+<li><p>Can’t import pygame and other python package.<br><br> <strong>Solution:</strong></p>
+<ul>
+<li>Download the required packages.</li>
+<li>Open solution explorer.</li>
+<li>Right-click on the Python environment and select Install Python Package.</li>
+<li>Type the full path to the “Search PyPI and installed packages” box.</li>
+<li>Notice: the pip version need to be upgraded to the latest one, or the python package would fail to be installed.</li>
+</ul>
+</li>
+</ol>
+<h2 id="Week-3"><a href="#Week-3" class="headerlink" title="Week 3 "></a><font color="#2EA9DF">Week 3 </font></h2><h3 id="Final-result"><a href="#Final-result" class="headerlink" title="Final result"></a>Final result</h3><p>Due to the limitation of devices for developing the project last 2 weeks, we finally borrowed a Windows laptop to code this week. In order to work effienctly, we divided our work into 2 parts, which are training model and matching postures.</p>
+<ul>
+<li><p><font color="#1E88A8">Training model</font>:</p>
+<ul>
+<li><strong>Training on our robot’s data.</strong><ul>
+<li>26 attributes (26 flexible angles from choregraphe)</li>
+<li>Using SVM</li>
+<li>Performs very well </li>
+</ul>
+</li>
+<li><strong>Training on real data</strong><ul>
+<li>11 attributes (8 posture angles and 3 orientations)</li>
+<li>Also very well<br><div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="f4.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="f5.jpg" alt=""></div></div><div class="group-picture-row"></div></div></div><br></li>
+</ul>
+</li>
+<li><strong>Due to the need of large dataset, we use normal distrubution to generate 6000 simulation data (1000 data for each posture).</strong><br>  <div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="f.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="f2.jpg" alt=""></div></div><div class="group-picture-row"></div></div></div><br><ul>
+<li>μ = mean (standard)</li>
+<li>σ = standard deviation</li>
+</ul>
+</li>
+<li><strong>Training Result</strong><br> <img src="f3.jpg" alt=""><ul>
+<li>SVM accuracy: 99.83%</li>
+<li>This training is trustable.<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><font color="#1E88A8">Matching posture</font>:</p>
+<ul>
+<li><strong>Obtain skeleton data via Kinect</strong></li>
+<li><strong>Extract joint positions via pykinect library</strong></li>
+<li><strong>Calculate 11 features</strong><br>   <img src="f6.jpg" alt=""><ul>
+<li>Because the angles extracted from virtual robot is different from real human’s skeleton angles, we decided use real data to train model in order to match the posture easily later.</li>
+<li>8 skeleton angles – obtained by dot product </li>
+<li>3 orientations – used for judge the direction of the arms and feet</li>
+</ul>
+</li>
+<li><strong>Use trained model to test user’s data</strong></li>
+<li><strong>Matching</strong><ul>
+<li>Pass: the distance between standard data and test data &lt; criteria</li>
+<li>Fail: <ul>
+<li>predicted label is wrong</li>
+<li>predicted label is right but distance does’t meet the criteria</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>correct posture</strong> </p>
+<ul>
+<li><p>Find the maximum angle of error and output the value to instrut user to correct his or her posture.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">err = []</div><div class="line">max_joint = [ &quot;left elbow&quot;, &quot;left shoulder&quot;,&quot;right elbow&quot;, &quot;right shoulder&quot;, &quot;left knee&quot;, &quot;right knee&quot;, &quot;left hip&quot;, &quot;right hip&quot;, ]</div><div class="line">distance=numpy.linalg.norm(numpy.array(standardData[posture-1])-numpy.array(testData))        </div><div class="line">for i in range(len(testData)):</div><div class="line">      err1 = abs(standardData[posture-1][i]-testData[i])</div><div class="line">      err.append(err1)</div><div class="line">      max_err = max(err)</div><div class="line">for i in range(len(testData)):</div><div class="line">      if (max_err == err[i]):</div><div class="line">        	print &apos;the #&apos;,max_joint[i], &apos;error,  need to modify&apos;, &apos;Need to modify:&apos;, max_err, &apos;degrees&apos;</div></pre></td></tr></table></figure>
+</li>
+<li><p>User performs posture again until passing.</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><ul>
+<li><strong>Correct posture</strong><br><iframe width="560" height="315" src="https://www.youtube.com/embed/fC7D2tcOfIw" frameborder="0" allowfullscreen></iframe></li>
+<li><strong>Wrong posture</strong><br><iframe width="560" height="315" src="https://www.youtube.com/embed/iZz_ZFVkNSQ" frameborder="0" allowfullscreen></iframe></li>
+<li><strong>Posture needs to be modified</strong><br><iframe width="560" height="315" src="https://www.youtube.com/embed/h57PEmtjw1A" frameborder="0" allowfullscreen></iframe>
+
+</li>
+</ul>
+
+          
         
       
     </div>
