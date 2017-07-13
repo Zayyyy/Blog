@@ -88,24 +88,24 @@
 
 
 
-<meta name="description" content="Week 1 Progress Webot part: We designed 6 postures but some are too complicated when setting the virtual robot. The adjustable range of angles in choregraphe is too small to achieve some postures, s">
+<meta name="description" content="Introduction We did this project using robot(i.e virtual NAO robot) and managed to implement 6 postures and achieve a specific purpose. It is a fact that exercise on a regular basis plays a crucial ro">
 <meta name="keywords" content="Intelligent">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Computer Vision Project -- Insturct an exercise session">
 <meta property="og:url" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/index.html">
 <meta property="og:site_name" content="Ang. Z">
-<meta property="og:description" content="Week 1 Progress Webot part: We designed 6 postures but some are too complicated when setting the virtual robot. The adjustable range of angles in choregraphe is too small to achieve some postures, s">
-<meta property="og:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f4.jpg">
+<meta property="og:description" content="Introduction We did this project using robot(i.e virtual NAO robot) and managed to implement 6 postures and achieve a specific purpose. It is a fact that exercise on a regular basis plays a crucial ro">
 <meta property="og:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f5.jpg">
+<meta property="og:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f4.jpg">
 <meta property="og:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f.jpg">
 <meta property="og:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f2.jpg">
 <meta property="og:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f3.jpg">
 <meta property="og:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f6.jpg">
-<meta property="og:updated_time" content="2017-05-31T21:06:32.000Z">
+<meta property="og:updated_time" content="2017-07-13T08:18:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Computer Vision Project -- Insturct an exercise session">
-<meta name="twitter:description" content="Week 1 Progress Webot part: We designed 6 postures but some are too complicated when setting the virtual robot. The adjustable range of angles in choregraphe is too small to achieve some postures, s">
-<meta name="twitter:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f4.jpg">
+<meta name="twitter:description" content="Introduction We did this project using robot(i.e virtual NAO robot) and managed to implement 6 postures and achieve a specific purpose. It is a fact that exercise on a regular basis plays a crucial ro">
+<meta name="twitter:image" content="https://zayyyy.github.io/Blog/2017/05/29/Intelligent-System/f5.jpg">
 
 
 
@@ -341,7 +341,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-29T19:35:28+02:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-29T19:35:28+08:00">
                 2017-05-29
               </time>
             
@@ -398,7 +398,11 @@
       
 
       
-        <a id="more"></a> 
+        <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>We did this project using robot(i.e virtual NAO robot) and managed to implement 6 postures and achieve a specific purpose. It is a fact that exercise on a regular basis plays a crucial role for people who are the old with chronicle illnesses or people just recovering from an accident. However, because of limited resource of medical staff and probably the embarrassment of patients in understanding, learning and executing the tasks, robots, fortunately, can be a better choice to help with both problems. Therefore, we are going to implement this task and aim to prove that it is feasible and plausible. Finally, it has been shown that robot was definitely able to instruct successful exercises and even sometimes are more friendly and impatient for people to execute those exercises than their human counterparts. <a id="more"></a> </li>
+<li>We divided the work into two main parts:  Movement Design and Posture Classification Analysis. Firstly, considering that both a human and the NAO robot should be able to perform those postures in a similar manner, we selected six different exercises. Secondly, Choregraphe was used to design and generate postures, i.e standard data of each posture and displayed those exercises that people should imitate. Kinect was used to extract data from the posture’s learner including the standard data of those 6 postures which was labeled manually. Then, SVM , a supervised learning model, was trained on those labeled data, then was used to analyze the human exercises and classify those extracted data.</li>
+<li>In addition, the interaction with system was implemented by using Terminal Command Line to give feedback on their performance, including some specific interaction with posture’s learner, for example, a precise feedback: “Please put the left arm a little higher”,  mainly because that virtual robot did not have speakers. By setting correction criterion for “wrong” and “right” posture, namely, a boundary value, modification suggestion was generated and then displayed in the command line. In the end, with the help of robot’s modification suggestions, the learner succeeded performing all of 6 postures.</li>
+</ul>
 <h2 id="Week-1"><a href="#Week-1" class="headerlink" title="Week 1 "></a><font color="#2EA9DF">Week 1 </font></h2><h3 id="Progress"><a href="#Progress" class="headerlink" title="Progress"></a>Progress</h3><ul>
 <li>Webot part: We designed 6 postures but some are too complicated when setting the virtual robot. The adjustable range of angles in choregraphe is too small to achieve some postures, so we need to simplify our postures.</li>
 <li>Pose estimation: We followed the instruction of 2D articulated human pose estimation software. Luckily, the example of human pose estimation works well. However, when we want to detect upperbody or fullbody to get the bounding box of our dataset, there are some problems with the calvin upper-body detector. The provided voc-release file is too old without maintenance. In this case, we have to change our plan.</li>
@@ -460,9 +464,10 @@
 <ul>
 <li>11 attributes (8 posture angles and 3 orientations)</li>
 <li><p>Also very well </p>
-<p><img src="f4.jpg" alt=""><br><img src="f5.jpg" alt=""><br><br></p>
+<p><img src="f5.jpg" alt=""><br><img src="f4.jpg" alt=""></p>
 </li>
 </ul>
+<p><br></p>
 </li>
 <li><p><strong>Due to the need of large dataset, we use normal distrubution to generate 6000 simulation data (1000 data for each posture).</strong></p>
 <p>  <img src="f.jpg" alt=""><br>  <img src="f2.jpg" alt=""></p>
@@ -556,6 +561,22 @@
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2017/05/11/Stockholm/" rel="next" title="斯德哥尔摩一日精粹">
+                <i class="fa fa-chevron-left"></i> 斯德哥尔摩一日精粹
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
       
       
@@ -623,7 +644,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/Blog/archives">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -634,7 +655,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/Blog/categories/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -645,7 +666,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/Blog/tags/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -691,7 +712,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Week-1"><span class="nav-number">1.</span> <span class="nav-text">Week 1 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Progress"><span class="nav-number">1.1.</span> <span class="nav-text">Progress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Issues"><span class="nav-number">1.2.</span> <span class="nav-text">Issues</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Week-2"><span class="nav-number">2.</span> <span class="nav-text">Week 2 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Progress-1"><span class="nav-number">2.1.</span> <span class="nav-text">Progress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Issues-1"><span class="nav-number">2.2.</span> <span class="nav-text">Issues</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Week-3"><span class="nav-number">3.</span> <span class="nav-text">Week 3 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Final-result"><span class="nav-number">3.1.</span> <span class="nav-text">Final result</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">3.2.</span> <span class="nav-text">Demo</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Week-1"><span class="nav-number">2.</span> <span class="nav-text">Week 1 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Progress"><span class="nav-number">2.1.</span> <span class="nav-text">Progress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Issues"><span class="nav-number">2.2.</span> <span class="nav-text">Issues</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Week-2"><span class="nav-number">3.</span> <span class="nav-text">Week 2 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Progress-1"><span class="nav-number">3.1.</span> <span class="nav-text">Progress</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Issues-1"><span class="nav-number">3.2.</span> <span class="nav-text">Issues</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Week-3"><span class="nav-number">4.</span> <span class="nav-text">Week 3 </span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Final-result"><span class="nav-number">4.1.</span> <span class="nav-text">Final result</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">4.2.</span> <span class="nav-text">Demo</span></a></li></ol></li></ol></div>
             
 
           </div>
